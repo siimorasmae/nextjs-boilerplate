@@ -1,0 +1,4 @@
+{
+  "error-with-status": "Juhtus viga koodiga {{statusCode}}",
+  "error-without-status": "Juhtus suur viga!"
+}

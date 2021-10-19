@@ -1,0 +1,4 @@
+{
+  "error-with-status": "Произошла ошибка кода {{statusCode}}",
+  "error-without-status": "Произошла большая ошибка!"
+}
