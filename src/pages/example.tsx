@@ -1,11 +1,11 @@
 import type { NextPage } from 'next';
-import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
-import { getExampleData, selectExample } from '@/services/example';
+import { useSWRConfig } from 'swr';
+import { useQuote } from '@/services/example2';
 import Header from '@/components/Header';
 
 const Example: NextPage = () => {
-  const dispatch = useAppDispatch();
-  const { data, pending, error } = useAppSelector(selectExample);
+  const { quote, isLoading, isError } = useQuote();
+  const { mutate } = useSWRConfig();
 
   return (
     <>
@@ -13,11 +13,14 @@ const Example: NextPage = () => {
 
       <p>Generate random Kanye West quote</p>
 
-      {pending && <p>Loading...</p>}
-      {data && <p>{data.quote}</p>}
-      {error && <p>Oops, something went wrong</p>}
+      {isLoading && <p>Loading...</p>}
+      {quote && <p>{quote.quote}</p>}
+      {isError && <p>Oops, something went wrong</p>}
 
-      <button onClick={() => dispatch(getExampleData())} disabled={pending}>
+      <button
+        onClick={() => mutate('https://api.kanye.rest/')}
+        disabled={isLoading}
+      >
         Generate Kanye Quote
       </button>
     </>
